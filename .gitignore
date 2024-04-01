@@ -1,0 +1,6 @@
+# OS X temporary files
+.DS_Store
+.Trashes
+
+# Xcode User settings
+xcuserdata/
