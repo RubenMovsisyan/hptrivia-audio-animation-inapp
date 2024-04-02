@@ -21,6 +21,7 @@
 		3BB1E7122BBBB24F00E9B026 /* deep-in-the-dell.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3BB1E70A2BBBB24F00E9B026 /* deep-in-the-dell.mp3 */; };
 		3BB1E7132BBBB24F00E9B026 /* magic-wand.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3BB1E70B2BBBB24F00E9B026 /* magic-wand.mp3 */; };
 		3BB1E7152BBBB4AF00E9B026 /* Consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1E7142BBBB4AF00E9B026 /* Consts.swift */; };
+		3BB1E7172BBBC5C800E9B026 /* InstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1E7162BBBC5C800E9B026 /* InstructionsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		3BB1E70A2BBBB24F00E9B026 /* deep-in-the-dell.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "deep-in-the-dell.mp3"; sourceTree = "<group>"; };
 		3BB1E70B2BBBB24F00E9B026 /* magic-wand.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "magic-wand.mp3"; sourceTree = "<group>"; };
 		3BB1E7142BBBB4AF00E9B026 /* Consts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consts.swift; sourceTree = "<group>"; };
+		3BB1E7162BBBC5C800E9B026 /* InstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			children = (
 				3BB1E6F42BBB4BE000E9B026 /* HPTriviaApp.swift */,
 				3BB1E6F62BBB4BE000E9B026 /* ContentView.swift */,
+				3BB1E7162BBBC5C800E9B026 /* InstructionsView.swift */,
 				3BB1E7142BBBB4AF00E9B026 /* Consts.swift */,
 				3BB1E6F82BBB4BE200E9B026 /* Assets.xcassets */,
 				3BB1E7022BBBB1F800E9B026 /* trivia.json */,
@@ -177,6 +180,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BB1E6F72BBB4BE000E9B026 /* ContentView.swift in Sources */,
+				3BB1E7172BBBC5C800E9B026 /* InstructionsView.swift in Sources */,
 				3BB1E7152BBBB4AF00E9B026 /* Consts.swift in Sources */,
 				3BB1E6F52BBB4BE000E9B026 /* HPTriviaApp.swift in Sources */,
 			);
