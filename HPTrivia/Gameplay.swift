@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Gameplay: View {
     @Environment(\.dismiss) private var dismiss
+    @Namespace private var namespace
     @State private var animateViewsIn = false
     @State private var tappedCorrectAnswer = false
     @State private var hintWiggle = false
@@ -16,6 +17,9 @@ struct Gameplay: View {
     @State private var movePointsToScore = false
     @State private var revealHint = false
     @State private var revealBook = false
+    @State private var wrongAnswersTapped: [Int] = []
+    
+    let tempAnsw = [true, false, false, false]
     
     var body: some View {
         GeometryReader { geo in
@@ -41,6 +45,7 @@ struct Gameplay: View {
                     .padding()
                     .padding(.vertical, 30)
                     
+//                MARK: - Qustion
                     VStack {
                         if animateViewsIn {
                             Text("Who is Harry Potter")
@@ -48,12 +53,14 @@ struct Gameplay: View {
                                 .multilineTextAlignment(.center)
                                 .padding()
                                 .transition(.scale)
+                                .opacity(tappedCorrectAnswer ? 0.1 : 1)
                         }
                     }
                     .animation(.easeInOut(duration: 2), value: animateViewsIn)
                     
                     Spacer()
                     
+//                   MARK: - Hints
                     HStack {
                         VStack {
                             if animateViewsIn {
@@ -89,6 +96,8 @@ struct Gameplay: View {
                                             .opacity(revealHint ? 1 : 0)
                                             .scaleEffect(revealHint ? 1.33 : 1)
                                     )
+                                    .opacity(tappedCorrectAnswer ? 0.1 : 1)
+                                    .disabled(tappedCorrectAnswer)
                             }
                         }
                         .animation(.easeOut(duration: 1.5).delay(2), value: animateViewsIn)
@@ -132,27 +141,62 @@ struct Gameplay: View {
                                             .opacity(revealBook ? 1 : 0)
                                             .scaleEffect(revealBook ? 1.33 : 1)
                                     )
+                                    .opacity(tappedCorrectAnswer ? 0.1 : 1)
+                                    .disabled(tappedCorrectAnswer)
                             }
                         }
                         .animation(.easeOut(duration: 1.5).delay(2), value: animateViewsIn)
                     }
                     .padding(.bottom)
                     
+//                    MARK: - Answers
                     LazyVGrid(columns: [GridItem(), GridItem()]) {
                         ForEach(1..<5) { i in
-                            VStack {
-                                if animateViewsIn {
-                                    Text(i == 3 ? "The boy who lived got sent o his relatives house where je was treated quit badlky " : "Answer \(i)")
-                                        .minimumScaleFactor(0.5)
-                                        .multilineTextAlignment(.center)
-                                        .padding(10)
-                                        .frame(width: geo.size.width / 2.15 , height: 80)
-                                        .background(.green.opacity(0.5))
-                                        .clipShape(.rect(cornerRadius: 25))
-                                        .transition(.scale)
+                            if tempAnsw[i - 1] == true {
+                                VStack {
+                                    if animateViewsIn {
+                                        if tappedCorrectAnswer == false {
+                                            Text("Answer \(i)")
+                                                .minimumScaleFactor(0.5)
+                                                .multilineTextAlignment(.center)
+                                                .padding(10)
+                                                .frame(width: geo.size.width / 2.15 , height: 80)
+                                                .background(.green.opacity(0.5))
+                                                .clipShape(.rect(cornerRadius: 25))
+                                                .transition(.asymmetric(insertion: .scale, removal: .scale(scale: 5).combined(with: .opacity.animation(.easeOut(duration: 0.5)))))
+                                                .matchedGeometryEffect(id: "Answer", in: namespace)
+                                                .onTapGesture {
+                                                    withAnimation(.easeOut(duration: 1)) {
+                                                        tappedCorrectAnswer = true
+                                                    }
+                                                }
+                                        }
+                                    }
                                 }
+                                .animation(.easeOut(duration: 1).delay(1.5), value: animateViewsIn)
+                            } else {
+                                VStack {
+                                    if animateViewsIn {
+                                        Text("Answer \(i)")
+                                            .minimumScaleFactor(0.5)
+                                            .multilineTextAlignment(.center)
+                                            .padding(10)
+                                            .frame(width: geo.size.width / 2.15 , height: 80)
+                                            .background(wrongAnswersTapped.contains(i) ? .red.opacity(0.5) : .green.opacity(0.5))
+                                            .clipShape(.rect(cornerRadius: 25))
+                                            .transition(.scale)
+                                            .onTapGesture {
+                                                withAnimation(.easeOut(duration: 1)) {
+                                                    wrongAnswersTapped.append(i)
+                                                }
+                                            }
+                                            .scaleEffect(wrongAnswersTapped.contains(i) ? 0.8 : 1)
+                                            .disabled(tappedCorrectAnswer || wrongAnswersTapped.contains(i))
+                                            .opacity(tappedCorrectAnswer ? 0.1 : 1)
+                                    }
+                                }
+                                .animation(.easeOut(duration: 1).delay(1.5), value: animateViewsIn)
                             }
-                            .animation(.easeOut(duration: 1).delay(1.5), value: animateViewsIn)
                         }
                     }
                     
@@ -206,6 +250,7 @@ struct Gameplay: View {
                             .background(.green.opacity(0.5))
                             .clipShape(.rect(cornerRadius: 25))
                             .scaleEffect(2)
+                            .matchedGeometryEffect(id: "Answer", in: namespace)
                     }
                     
                     Spacer()
