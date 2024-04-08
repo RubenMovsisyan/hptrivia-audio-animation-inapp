@@ -12,7 +12,9 @@ import SwiftUI
 class Game: ObservableObject {
     @Published var gameScore = 0
     @Published var questionScore = 5
-    @Published var recentScore = [0, 0, 0]
+    @Published var recentScores = [0, 0, 0]
+    
+    private let savePath = FileManager.documentsDirectory.appending(path: "SavedScores")
     
     private var allQuestions: [Question] = []
     private var answeredQuestions: [Int] = []
@@ -71,9 +73,29 @@ class Game: ObservableObject {
     }
     
     func endGame() {
-        recentScore[2] = recentScore[1]
-        recentScore[1] = recentScore[0]
-        recentScore[0] = gameScore
+        recentScores[2] = recentScores[1]
+        recentScores[1] = recentScores[0]
+        recentScores[0] = gameScore
+        
+        saveScores()
+    }
+    
+    func loadScore() {
+        do {
+            let data = try Data(contentsOf: savePath)
+            recentScores = try JSONDecoder().decode([Int].self, from: data)
+        } catch {
+            recentScores = [0, 0, 0]
+        }
+    }
+    
+    private func saveScores() {
+        do {
+            let data = try JSONEncoder().encode(recentScores)
+            try data.write(to: savePath)
+        } catch {
+         print("Unable to save data: \(error)")
+        }
     }
     
     private func decodeQuestions() {
