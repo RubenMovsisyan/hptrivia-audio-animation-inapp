@@ -25,6 +25,7 @@
 		3BB1E7192BBBCBBF00E9B026 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1E7182BBBCBBF00E9B026 /* SettingsView.swift */; };
 		3BB1E71B2BBD1EFC00E9B026 /* Gameplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1E71A2BBD1EFC00E9B026 /* Gameplay.swift */; };
 		3BB1E71E2BC259AA00E9B026 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1E71D2BC259AA00E9B026 /* Store.swift */; };
+		3BB1E7202BC390D000E9B026 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1E71F2BC390D000E9B026 /* Question.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		3BB1E71A2BBD1EFC00E9B026 /* Gameplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gameplay.swift; sourceTree = "<group>"; };
 		3BB1E71C2BC258A500E9B026 /* HPConfig.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = HPConfig.storekit; sourceTree = "<group>"; };
 		3BB1E71D2BC259AA00E9B026 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		3BB1E71F2BC390D000E9B026 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 				3BB1E6F62BBB4BE000E9B026 /* ContentView.swift */,
 				3BB1E71A2BBD1EFC00E9B026 /* Gameplay.swift */,
 				3BB1E7162BBBC5C800E9B026 /* InstructionsView.swift */,
+				3BB1E71F2BC390D000E9B026 /* Question.swift */,
 				3BB1E71D2BC259AA00E9B026 /* Store.swift */,
 				3BB1E7182BBBCBBF00E9B026 /* SettingsView.swift */,
 				3BB1E7142BBBB4AF00E9B026 /* Consts.swift */,
@@ -191,6 +194,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BB1E71E2BC259AA00E9B026 /* Store.swift in Sources */,
+				3BB1E7202BC390D000E9B026 /* Question.swift in Sources */,
 				3BB1E7192BBBCBBF00E9B026 /* SettingsView.swift in Sources */,
 				3BB1E71B2BBD1EFC00E9B026 /* Gameplay.swift in Sources */,
 				3BB1E6F72BBB4BE000E9B026 /* ContentView.swift in Sources */,
