@@ -7,21 +7,15 @@
 
 import SwiftUI
 
-enum BookStatus {
-    case active
-    case inactive
-    case locked
-}
-
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var books: [BookStatus] = [.active, .active, .inactive, .locked, .locked, .locked, .locked]
+    @EnvironmentObject private var store: Store
     
     var body: some View {
         ZStack {
             InfoBackgroundImage()
             VStack {
-                Text("Which books would yoou like to see quesitons from?")
+                Text("Which books would you like to see quesitons from?")
                     .font(.title)
                     .multilineTextAlignment(.center)
                     .padding(.top)
@@ -29,7 +23,9 @@ struct SettingsView: View {
                 ScrollView {
                     LazyVGrid(columns: [GridItem(), GridItem()]) {
                         ForEach(0..<7) { i in
-                            if books[i] == .active {
+                            if store.books[i] == .active ||
+                                (store.books[i] == .locked &&
+                                 store.purchasedIDs.contains("hp\(i + 1)")) {
                                 ZStack(alignment: .bottomTrailing) {
                                     Image("hp\(i + 1)")
                                         .resizable()
@@ -43,10 +39,13 @@ struct SettingsView: View {
                                         .shadow(radius: 1)
                                         .padding(3)
                                 }
-                                .onTapGesture {
-                                    books[i] = .inactive
+                                .task {
+                                    store.books[i] = .active
                                 }
-                            } else if books[i] == .inactive {
+                                .onTapGesture {
+                                    store.books[i] = .inactive
+                                }
+                            } else if store.books[i] == .inactive {
                                 ZStack(alignment: .bottomTrailing) {
                                     Image("hp\(i + 1)")
                                         .resizable()
@@ -62,7 +61,7 @@ struct SettingsView: View {
                                         .padding(3)
                                 }
                                 .onTapGesture {
-                                    books[i] = .active
+                                    store.books[i] = .active
                                 }
                             } else {
                                 ZStack {
@@ -77,6 +76,13 @@ struct SettingsView: View {
                                         .imageScale(.large)
                                         .shadow(color: .white.opacity(0.75), radius: 3)
                                     
+                                }
+                                .onTapGesture {
+                                    let product = store.products[i-3]
+                                    
+                                    Task {
+                                        await store.purchase(product)
+                                    }
                                 }
                             }
                         }
@@ -97,4 +103,5 @@ struct SettingsView: View {
 
 #Preview {
     SettingsView()
+        .environmentObject(Store())
 }
